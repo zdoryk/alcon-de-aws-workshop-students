@@ -6,22 +6,18 @@ path=$(pwd)
 if [ ! -d "$path"/dist ]; then
   mkdir "$path"/dist
 fi
-# Build .zip for AWS Lambda
+# Build .zip for AWS Lambda and copy Glue job script to dist
 zip -r "$path"/dist/lambda_code.zip src
 cp "$path"/src/jobs/glue_enriched.py "$path"/dist/glue_enriched.py
 
-#TODO: Add Glue files
-
 # Terraform
+# If there is no .terraform dir - init terraform
 # shellcheck disable=SC2164
 if [ ! -d "$path"/.terraform ]; then
   terraform init
 fi
-# if terraform state list | grep s3 bucket - remove it
-#if terraform state list | grep s3; then
-#  terraform state rm aws_s3_bucket.alcon-workshop-s3-bucket
-#fi
-#terraform state rm aws_s3_bucket.alcon-workshop-s3-bucket
+
+# Destroy all the resources and apply the new ones
 terraform destroy -auto-approve
 terraform plan -out dist/plan.out
 terraform apply dist/plan.out
