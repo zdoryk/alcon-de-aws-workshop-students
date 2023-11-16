@@ -60,7 +60,7 @@ EOF
 }
 
 resource "aws_iam_role_policy_attachment" "glue_service_policy" {
-  role = aws_iam_role.sample_glue_role.name
+  role       = aws_iam_role.sample_glue_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole"
 }
 
@@ -72,8 +72,8 @@ resource "aws_iam_role_policy_attachment" "platform_metrics_glue_iam_policy" {
 resource "aws_glue_job" "glue_job" {
   count = var.create ? 1 : 0
 
-  name = "sample-glue-job-terraform"
-  description = "AWS Glue Job terraform example"
+  name         = "sample-glue-job-terraform"
+  description  = "AWS Glue Job terraform example"
   role_arn     = aws_iam_role.sample_glue_role.arn
   max_capacity = var.dpu
   glue_version = "3.0"
@@ -83,8 +83,8 @@ resource "aws_glue_job" "glue_job" {
   }
 
   default_arguments = merge(local.default_arguments, var.arguments)
-  max_retries = var.max_retries
-  timeout     = var.timeout
+  max_retries       = var.max_retries
+  timeout           = var.timeout
 
   execution_property {
     max_concurrent_runs = var.max_concurrent

@@ -64,7 +64,7 @@ resource "aws_lambda_function" "alcon-workshop-lambda" {
   */
   source_code_hash = filebase64sha256(var.zip_location)
   filename         = var.zip_location
-  timeout = var.timeout
+  timeout          = var.timeout
 #  layers           = ["arn:aws:lambda:${data.aws_region.current.name}:017000801446:layer:AWSLambdaPowertoolsPython:15"]
 
 
