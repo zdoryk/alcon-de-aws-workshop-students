@@ -22,7 +22,7 @@ resource "aws_s3_bucket_object" "script_object" {
   bucket = aws_s3_bucket.s3_sample_bucket.bucket
   key    = var.s3_object_name
   source = "./dist/${var.s3_object_name}"
-  acl = "private"
+  acl    = "private"
 }
 
 ## IAM Resources

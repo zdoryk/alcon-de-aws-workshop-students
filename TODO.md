@@ -18,11 +18,11 @@
     ╵
     ```
 
-- [ ] End up creating .sh script to run the whole thing
-- [ ] Check if Glue is working in ETL
-- [ ] Add CloudWatch trigger to ETL
-- [ ] Create a lambda and API Gateway to provide the data for this workshop
+- [X] End up creating .sh script to run the whole thing
+- [X] Check if Glue is working in ETL
+- [X] Add CloudWatch trigger to ETL
+- [X] Create a lambda and API Gateway to provide the data for this workshop
 - [ ] Write a code for ETL
 - [ ] Check if Athena is working after ETL
-- [ ] Create a .ps1 script to run the whole thing
+- [X] Create a .ps1 script to run the whole thing
 - [ ] Make a presentation???

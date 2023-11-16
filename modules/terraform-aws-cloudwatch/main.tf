@@ -30,7 +30,7 @@ resource "aws_iam_role" "allow_cloudwatch_to_execute_role" {
 }
 
 resource "aws_iam_role_policy" "state_execution" {
-  name        = "state_execution_policy"
+  name   = "state_execution_policy"
   role   = aws_iam_role.allow_cloudwatch_to_execute_role.id
 
   policy = <<EOF
@@ -51,14 +51,14 @@ EOF
 }
 
 resource "aws_cloudwatch_event_rule" "sfn_trigger_rule" {
-  name = "sfn_trigger_rule"
+  name                = "sfn_trigger_rule"
   schedule_expression = local.schedule_expression
-  description = "Sample Event for Glue terraform example"
+  description         = "Sample Event for Glue terraform example"
 }
 
 resource "aws_cloudwatch_event_target" "cloudwatch_event_target" {
-  rule = aws_cloudwatch_event_rule.sfn_trigger_rule.name
-  arn = var.sfn_function_arn
+  rule     = aws_cloudwatch_event_rule.sfn_trigger_rule.name
+  arn      = var.sfn_function_arn
   role_arn = aws_iam_role.allow_cloudwatch_to_execute_role.arn
 }
 
