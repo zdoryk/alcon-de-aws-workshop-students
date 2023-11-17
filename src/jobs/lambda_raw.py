@@ -8,15 +8,16 @@ import awswrangler as wr
 import boto3
 
 
-def get_data_df():
+def get_data_df(hour: str):
     logging.info('Getting data from API')
     headers = {
         "Authorization": f"Bearer {getenv('AUTH_TOKEN')}"
     }
-    today = datetime.today()
-    start_time = '10:00'
-    end_time = '23:59'
-
+    today = datetime.utcnow()
+    # Get current hour number
+    previous_hour_dt = (datetime.utcnow() - timedelta(hours=1))
+    start_time = f"{hour}:00"
+    end_time = f"{hour}:59"
     api_base_url = 'https://vnl75agc42.execute-api.us-east-1.amazonaws.com/v1'
     # Get data from the API
     response = requests.get(
@@ -28,14 +29,15 @@ def get_data_df():
 
 def main(handler=None, context=None):
     logging.info('Starting lambda_raw job')
+    previous_hour_dt = (datetime.utcnow() - timedelta(hours=1))
     # Get data from API
-    df = get_data_df()
+    df = get_data_df(hour=previous_hour_dt.strftime('%H'))
     session = boto3.Session()
 
     # Write data to S3
     wr.s3.to_csv(
         df=df,
-        path=f's3://{getenv("S3_BUCKET_NAME")}/raw/{datetime.today().strftime("%d-%m-%Y")}.csv',
+        path=f's3://{getenv("S3_BUCKET_NAME")}/raw/{previous_hour_dt.strftime("%d-%m-%Y_%H")}.csv',
         boto3_session=session,
         index=False
     )

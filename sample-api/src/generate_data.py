@@ -50,7 +50,7 @@ def generate_one_record(date: datetime):
 
 # Set a seed for reproducibility
 def lambda_handler(event, context):
-    today = datetime.today()
+    today = datetime.utcnow()
     data = []
     bucket_name = os.environ['BUCKET_NAME']
     for _ in range(100):

@@ -30,8 +30,11 @@ class Settings:
         if not self.auth_token == '1q2w3e4r5t':
             raise ValueError("Invalid authorization token.")
 
-        if not self.date == datetime.datetime.today().strftime('%d-%m-%Y'):
+        if not self.date == datetime.datetime.utcnow().strftime('%d-%m-%Y'):
             raise ValueError("Invalid date. Must be today's date.")
+
+        if not self.start_time < datetime.datetime.utcnow().strftime('%H:%M'):
+            raise ValueError("Invalid start_time. Must be lower than the current time.")
 
         if not self.start_time < self.end_time:
             raise ValueError("Invalid start_time and end_time. start_time must be before end_time.")
@@ -72,7 +75,9 @@ def get_data(settings: Settings):
                     sep=',',
                     header=0
                 ))
-    return pd.concat(df_list, ignore_index=False)
+    if df_list:
+        return pd.concat(df_list, ignore_index=True)
+    return pd.DataFrame()
 
 
 def lambda_handler(event, context):
@@ -89,13 +94,19 @@ def lambda_handler(event, context):
         auth_token: str = headers.get('Authorization', '')
         settings = Settings(date=date, start_time=start_time, end_time=end_time, auth_token=auth_token)
         df = get_data(settings=settings)
-        df = df.drop("Unnamed: 0", axis=1)
-        json_response = df.to_json(orient='records', date_format='iso', index=False)
+        if df.any().any():
+            json_response = df.to_json(orient='records', date_format='iso', index=False)
 
-        # Your existing Lambda logic goes here
+            # Your existing Lambda logic goes here
+            return {
+                'statusCode': 200,
+                'body': json_response
+            }
         return {
-            'statusCode': 200,
-            'body': json_response
+            'statusCode': 404,
+            'body': {
+                'message': 'No data found.'
+            }
         }
     except Exception as e:
         print(e)

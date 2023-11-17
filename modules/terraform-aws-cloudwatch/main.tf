@@ -1,5 +1,5 @@
 locals{
-  schedule_expression= "rate(5 minutes)"
+  schedule_expression= "cron(0 * * * ? *)" # every hour
 }
 
 # Variables

@@ -5,11 +5,11 @@
 You will be working with a dataset of patients in the hospital.
 
 Imagine that you have not only historic data as but the new data is constantly coming from the data source. 
-The job will run every day at night while your stakeholders sleep. Your main goal is to create a
-Data Lake on which we will have data for separate day in separate file for example:
+The job will run every hour. Your main goal is to create a Data Lake on which we will have data for 
+separate day and hour in separate file for example:
 S3_Bucket
-|- covid_data=10-10-2023
-|- covid_data=11-10-2023
+|- covid_data=10-10-2023_11.csv
+|- covid_data=11-10-2023_12.csv
 You will need to make a request to this endpoint: "TODO", to get the data you will need to provide as a query parameters:
 1. Date in the next format: "dd-mm-yyyy". 
 2. Start_time in the next format: "HH:mm".
@@ -17,9 +17,7 @@ You will need to make a request to this endpoint: "TODO", to get the data you wi
 
 Also you will need to provide the AUTH_TOKEN, that you have in your .env file, 
 **read this env variable from the file using Python code**.
-Token should be in the headers as "Authorization: Bearer <TOKEN>". 
-
-
+Token should be in the headers as "Authorization: Bearer <TOKEN>".
 
 ### You will need to clean the data and save it in the appropriate S3 bucket layer.
 #### What should be cleaned:
@@ -47,3 +45,4 @@ and assign each patient to their respective age group.
 ## Notes
 ### Please for all of the data manipulation use Pandas library that can be found here: https://pandas.pydata.org/docs/
 ### Remember after this cleaning you will need to save the data in the S3 bucket or to .csv if we are running out of time.
+### Use .utcnow() to get the current time in UTC format. The time on AWS server can differ from your local time.
