@@ -3,7 +3,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 3.27"
+      version = "~> 5.25"
     }
   }
 
@@ -75,8 +75,8 @@ module "aws_glue" {
 # Adding step function (Our main workflow)
 module "aws_sfn_state_machine" {
   source              = "./modules/terraform-aws-step-function"
-  glue_job_arn        = module.aws_glue.glue_job_arn
-  glue_job_name       = module.aws_glue.glue_job_name
+  glue_job_arn        = module.aws_glue.glue_job_arn_python_shell
+  glue_job_name       = module.aws_glue.glue_job_name_python_shell
   lambda_raw_arn      = module.aws_lambda_raw.lambda_arn
   lambda_raw_name     = module.aws_lambda_raw.lambda_name
   lambda_trusted_arn  = module.aws_lambda_trusted.lambda_arn
@@ -108,7 +108,7 @@ output "aws_step_function_arn" {
 }
 
 output "aws_glue_job_arn" {
-  value = module.aws_glue.glue_job_arn
+  value = module.aws_glue.glue_job_arn_python_shell
 }
 
 output "aws_lambda_raw_arn" {

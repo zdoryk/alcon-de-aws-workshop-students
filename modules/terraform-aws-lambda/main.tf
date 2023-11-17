@@ -42,7 +42,8 @@ resource "aws_iam_policy" "LambdaPolicy" {
         "Effect": "Allow",
         "Action": [
             "s3:GetObject",
-            "s3:PutObject"
+            "s3:PutObject",
+            "s3:ListBucket"
         ],
         "Resource" : [
           var.s3_bucket_arn,
@@ -81,7 +82,6 @@ resource "aws_lambda_function" "alcon-workshop-lambda" {
     variables = {
       AUTH_TOKEN = "1q2w3e4r5t",  # A good practice is to use AWS Secrets Manager to store secrets and sensitive info but for this workshop we will use a simple variable
       S3_BUCKET_NAME = var.s3_bucket_name,
-      LAYER = var.layer
     }
   }
 }

@@ -21,23 +21,24 @@ Token should be in the headers as "Authorization: Bearer <TOKEN>".
 
 ### You will need to clean the data and save it in the appropriate S3 bucket layer.
 #### What should be cleaned:
-1. Delete redundant column.
-2. You will need to create a new column called "died" which will be a binary column with 0
-  and 1 values. 0 means that the patient survived and 1 means that the patient died. If the pation has an actual date
-  in the "DATE_DIED" column it means that the patient died. If the patient has "9999-99-99" in the "DATE_DIED" column
-  it means that the patient survived.
-3. Validate the data in the "AGE" column to ensure it makes sense.  If this column has any problems please fix
+1. You will need to create a new column called "died" which will be a bool column with "True" and "False" values.
+  "False" means that the patient survived and 1 means that the patient died. If the patient has an actual date
+  in the "DATE_DIED" column it means that the patient have died. If the patient has "9999-99-99" in the "DATE_DIED" column
+  it means that the patient is alive.
+2. Validate the data in the "AGE" column to ensure it makes sense.  If this column has any problems please fix
    them to work automatically in the future.
 TODO. For example, ensure that there are
    - Handling Invalid Ages - no negative ages
    - Identify Outliers - no ages that are unrealistically high.
    - Identify Missing Values - no missing ages.
+   - **NOTE: In terms of this workshop you can just filter those values, there is no need for now to implement comprehensive 
+approaches of handling this. But I don't stop you to it more complex after the workshop in your free time**
 
-4. Age Grouping:
+3. Age Grouping:
 Create age groups/bins with a 10-year step (e.g., 0-10 years, 11-20 years, etc.) 
 and assign each patient to their respective age group.
 
-5. You have a column "SEX", "AGE", "FIRST_NAME", "LAST_NAME" using these values please create a new column where
+4. You have a column "SEX", "AGE", "FIRST_NAME", "LAST_NAME" using these values please create a new column where
    you will have a full name of the patient in the following format: "FIRST_NAME LAST_NAME". Also if the person
    is older than 21y.o.use "Mr" or "Mrs" if the person is male or a female.
    For example: "Mr. John Smith" or "Mrs. Jane Smith".

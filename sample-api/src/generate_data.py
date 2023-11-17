@@ -24,7 +24,7 @@ def generate_one_record(date: datetime):
         elif random.random() < 0.1:
             age = -1  # Negative value
         elif random.random() < 0.15:
-            age = random.randint(101, 120)  # Outlier (unrealistically high age)
+            age = random.randint(150, 170)  # Outlier (unrealistically high age)
 
     # Generate a random date of death between 2019-01-01 and 2023-12-31
     start_date = datetime(2023, 10, date.day)

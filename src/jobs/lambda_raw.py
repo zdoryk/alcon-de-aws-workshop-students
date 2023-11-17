@@ -32,15 +32,14 @@ def main(handler=None, context=None):
     previous_hour_dt = (datetime.utcnow() - timedelta(hours=1))
     # Get data from API
     df = get_data_df(hour=previous_hour_dt.strftime('%H'))
-    session = boto3.Session()
 
     # Write data to S3
     wr.s3.to_csv(
         df=df,
         path=f's3://{getenv("S3_BUCKET_NAME")}/raw/{previous_hour_dt.strftime("%d-%m-%Y_%H")}.csv',
-        boto3_session=session,
         index=False
     )
+
     return {"status": "OK"}
 
 
