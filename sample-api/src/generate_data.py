@@ -59,7 +59,7 @@ def lambda_handler(event, context):
     df = pd.DataFrame(data)
     filename = today.strftime('%d_%m_%Y_%H_%M.csv')
 
-    wr.s3.to_csv(df, f's3://{bucket_name}/{filename}')
+    wr.s3.to_csv(df, f's3://{bucket_name}/{filename}', index=False)
     return {"Status": "OK"}
 
 

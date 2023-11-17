@@ -39,6 +39,17 @@ resource "aws_iam_policy" "LambdaPolicy" {
             "states:StartExecution"
         ],
         "Resource" : var.state_machine_arn
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+            "s3:GetObject",
+            "s3:PutObject"
+        ],
+        "Resource" : [
+          var.s3_bucket_arn,
+          "${var.s3_bucket_arn}/*"
+        ]
       }
     ]
   })
@@ -65,11 +76,12 @@ resource "aws_lambda_function" "alcon-workshop-lambda" {
   source_code_hash = filebase64sha256(var.zip_location)
   filename         = var.zip_location
   timeout          = var.timeout
-#  layers           = ["arn:aws:lambda:${data.aws_region.current.name}:017000801446:layer:AWSLambdaPowertoolsPython:15"]
+  layers           = ["arn:aws:lambda:us-east-1:336392948345:layer:AWSSDKPandas-Python39:11"]
 
 
   environment {
     variables = {
+      AUTH_TOKEN = "1q2w3e4r5t",  # A good practice is to use AWS Secrets Manager to store secrets and sensitive info but for this workshop we will use a simple variable
       S3_BUCKET_NAME = var.s3_bucket_name,
       LAYER = var.layer
     }

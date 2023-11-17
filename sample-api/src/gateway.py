@@ -67,29 +67,39 @@ def get_data(settings: Settings):
             temp_clean_obj_time = ":".join(temp_clean_obj.split('_')[-2:])
             if settings.start_time <= temp_clean_obj_time <= settings.end_time:
                 # response = s3.get_object(Bucket=bucket_name, Key=f"{temp_clean_obj}.csv")
-                df_list.append(awswrangler.s3.read_csv(path=f"s3://{bucket_name}/{temp_clean_obj}.csv"))
-    return pd.concat(df_list, ignore_index=True)
+                df_list.append(awswrangler.s3.read_csv(
+                    path=f"s3://{bucket_name}/{temp_clean_obj}.csv",
+                    sep=',',
+                    header=0
+                ))
+    return pd.concat(df_list, ignore_index=False)
 
 
 def lambda_handler(event, context):
-    # Extract query parameters
-    query_params = event.__getitem__('queryStringParameters')
-    headers = event.__getitem__('headers')
+    try:
+        # Extract query parameters
+        query_params = event.__getitem__('queryStringParameters')
+        headers = event.__getitem__('headers')
 
-    date: str = query_params.get('date', '')
-    start_time: str = query_params.get('start_time', '')
-    end_time: str = query_params.get('end_time', '')
+        date: str = query_params.get('date', '')
+        start_time: str = query_params.get('start_time', '')
+        end_time: str = query_params.get('end_time', '')
 
-    # Extract Bearer token from headers
-    auth_token: str = headers.get('Authorization', '')
-    settings = Settings(date=date, start_time=start_time, end_time=end_time, auth_token=auth_token)
+        # Extract Bearer token from headers
+        auth_token: str = headers.get('Authorization', '')
+        settings = Settings(date=date, start_time=start_time, end_time=end_time, auth_token=auth_token)
+        df = get_data(settings=settings)
+        df = df.drop("Unnamed: 0", axis=1)
+        json_response = df.to_json(orient='records', date_format='iso', index=False)
 
-    df = get_data(settings=settings)
-    json_response = df.to_json(orient='records', date_format='iso', default_handler=str, index=False)
-    print(json_response)
-
-    # Your existing Lambda logic goes here
-    return {
-        'statusCode': 200,
-        'body': json_response
-    }
+        # Your existing Lambda logic goes here
+        return {
+            'statusCode': 200,
+            'body': json_response
+        }
+    except Exception as e:
+        print(e)
+        return {
+            'statusCode': 500,
+            'body': json.dumps(str(e))
+        }
