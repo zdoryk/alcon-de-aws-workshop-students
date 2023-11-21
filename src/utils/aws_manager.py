@@ -1,6 +1,4 @@
-
-
-class AwsManager():
+class AwsManager:
     def __int__(self):
         pass
 
