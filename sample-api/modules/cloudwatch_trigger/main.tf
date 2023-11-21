@@ -52,7 +52,7 @@ EOF
 resource "aws_cloudwatch_event_rule" "every_five_minutes" {
     name                = "every-five-minutes"
     description         = "Fires every five minutes"
-    schedule_expression = "rate(5 minutes)"
+    schedule_expression = local.schedule_expression
 }
 
 resource "aws_cloudwatch_event_target" "check_foo_every_five_minutes" {

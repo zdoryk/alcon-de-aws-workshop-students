@@ -80,7 +80,7 @@ resource "aws_sfn_state_machine" "aws_step_function_workflow" {
         "Parameters": {
           "JobName": var.glue_job_name,
           "Arguments": {
-            "--message": var.glue_message
+            "--S3_BUCKET_NAME": var.s3_data_bucket_name
           }
         },
         "End": true

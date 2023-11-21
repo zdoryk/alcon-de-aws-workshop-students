@@ -161,8 +161,9 @@ cython_debug/
 .terraform/
 .terraform.lock.hcl
 *.tfstate
-*.tfstate.backup
+*.backup
+*.info
 plan.out
 
 *.zip
-
+.DS_Store

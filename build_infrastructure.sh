@@ -18,6 +18,6 @@ if [ ! -d "$path"/.terraform ]; then
 fi
 
 # Destroy all the resources and apply the new ones
-terraform destroy -auto-approve
+#terraform destroy -auto-approve
 terraform plan -out dist/plan.out
 terraform apply dist/plan.out

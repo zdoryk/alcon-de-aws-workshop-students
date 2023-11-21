@@ -17,6 +17,6 @@ if (-not (Test-Path "$path\.terraform")) {
 }
 
 # Destroy all the resources and apply the new ones
-terraform destroy -auto-approve
+# terraform destroy -auto-approve
 terraform plan -out "$path\dist\plan.out"
 terraform apply "$path\dist\plan.out"

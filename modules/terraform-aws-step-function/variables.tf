@@ -8,3 +8,5 @@ variable "lambda_raw_name" {}
 
 variable "lambda_trusted_arn" {}
 variable "lambda_trusted_name" {}
+
+variable "s3_data_bucket_name" {}

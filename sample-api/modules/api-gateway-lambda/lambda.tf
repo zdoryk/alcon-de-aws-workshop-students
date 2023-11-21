@@ -93,4 +93,3 @@ resource "aws_lambda_permission" "apigw" {
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_api_gateway_rest_api.example.execution_arn}/*/*"
 }
-
