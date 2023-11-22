@@ -1,9 +1,9 @@
 import sys
-from awsglue.utils import getResolvedOptions
+import pandas as pd
 import awswrangler as wr
 import logging
 from datetime import datetime, timedelta
-import pandas as pd
+from awsglue.utils import getResolvedOptions
 
 args = getResolvedOptions(sys.argv, ["S3_BUCKET_NAME"])
 bucket_name = args["S3_BUCKET_NAME"]
