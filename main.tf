@@ -21,7 +21,7 @@ variable "job_temp_dir" {
 }
 
 # Modules
-# Create the S3 buckets
+# 1Create the S3 buckets
 module "amazon_s3_data" {
   source           = "./modules/terraform-amazon-s3"
   bucket_base_name = "alcon-workshop-data"
