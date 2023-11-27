@@ -92,7 +92,7 @@ resource "aws_glue_job" "glue_job_python_shell" {
   }
 }
 
-# Outputs
+# Outputs git
 output "glue_job_name_python_shell" {
   value = join(",", aws_glue_job.glue_job_python_shell.*.name)
 }
