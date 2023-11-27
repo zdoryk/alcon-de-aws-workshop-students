@@ -9,7 +9,7 @@ args = getResolvedOptions(sys.argv, ["S3_BUCKET_NAME"])
 bucket_name = args["S3_BUCKET_NAME"]
 
 
-# Function to create the full name with title
+# Function to create the full name with title 
 def create_full_name(row):
     pass
 
