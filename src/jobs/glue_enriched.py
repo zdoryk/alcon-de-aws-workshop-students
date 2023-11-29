@@ -15,7 +15,7 @@ bucket_name = args["S3_BUCKET_NAME"]
 def create_died_column(df: pd.DataFrame) -> pd.DataFrame:
     logging.info('Creating died column')
 
-    df['DIED'] = df['DATE_DIED'] == '9999-99-99'
+    df['IS_DEAD'] = df['DATE_DIED'] == '9999-99-99'
     return df
 
 
@@ -53,7 +53,20 @@ def main():
     enriched_df = add_age_group(enriched_df)
 
     enriched_path = f's3://{bucket_name}/enriched/{now.strftime("%d-%m-%Y_%H")}.parquet'
-    wr.s3.to_parquet(enriched_df, path=enriched_path, index=False)
+    
+    dtype = {
+        'FIRST_NAME': 'varchar(50)',
+        'LAST_NAME': 'varchar(50)',
+        'SEX': 'varchar(7)',
+        'AGE': 'smallint',
+        'DATE_DIED': 'varchar(20)',
+        'INGESTION_DATETIME': 'timestamp',
+        'IS_DEAD': 'boolean',
+        'FULL_NAME': 'varchar(100)',
+        'AGE_GROUP': 'varchar(20)',
+    }
+
+    wr.s3.to_parquet(enriched_df, path=enriched_path, index=False, dtype=dtype)
 
 
 main()
