@@ -1,6 +1,11 @@
 
 # Data Engineering Workshop
 
+## S3 bukcet links:
+- s3://alcon-workshop-athena-output-101054002597
+- s3://alcon-workshop-data-101054002597
+- s3://alcon-workshop-glue-code-101054002597
+
 ## Prerequisites
 ### Setup Local Env
 1. Install Python 3.9^
