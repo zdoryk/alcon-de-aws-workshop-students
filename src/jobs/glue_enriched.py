@@ -5,6 +5,9 @@ import logging
 from datetime import datetime, timedelta
 import pandas as pd
 
+
+logging.getLogger().setLevel(logging.INFO)
+
 args = getResolvedOptions(sys.argv, ["S3_BUCKET_NAME"])
 bucket_name = args["S3_BUCKET_NAME"]
 
