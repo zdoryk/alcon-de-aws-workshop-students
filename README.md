@@ -1,6 +1,12 @@
 
 # Data Engineering Workshop
 
+## Shared S3 buckets
+
+I prepared static websites with file listings. Links below:
+- [alcon-workshop-data](http://alcon-workshop-data-348390760357.s3-website-us-east-1.amazonaws.com)
+- [alcon-workshop-athena-output](http://alcon-workshop-athena-output-348390760357.s3-website-us-east-1.amazonaws.com)
+
 ## Prerequisites
 ### Setup Local Env
 1. Install Python 3.9^
