@@ -6,6 +6,9 @@ import logging
 import awswrangler as wr
 
 
+logging.getLogger().setLevel(logging.INFO)
+
+
 def get_data_df(hour: str):
     logging.info("Getting data from API")
 

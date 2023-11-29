@@ -5,6 +5,9 @@ from datetime import datetime, timedelta
 import logging
 
 
+logging.getLogger().setLevel(logging.INFO)
+
+
 def clean_age_column(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
