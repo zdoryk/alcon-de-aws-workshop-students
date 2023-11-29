@@ -26,7 +26,7 @@ def main(handler=None, context=None):
     logging.info("Starting lambda_trusted job")
 
     now = datetime.utcnow()
-    raw_path = f's3://{getenv("S3_BUCKET_NAME")}/{now.strftime("%d-%m-%Y_%H")}.csv'
+    raw_path = f's3://{getenv("S3_BUCKET_NAME")}/raw/{now.strftime("%d-%m-%Y_%H")}.csv'
     df = wr.s3.read_csv(raw_path)
     cleaned_df = clean_age_column(df)
 

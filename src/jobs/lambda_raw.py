@@ -31,7 +31,7 @@ def main(handler=None, context=None):
     now = datetime.utcnow()
     df = get_data_df(now.replace(minute=0, second=0))
 
-    filepath = f's3://{getenv("S3_BUCKET_NAME")}/{now.strftime("%d-%m-%Y_%H")}.csv'
+    filepath = f's3://{getenv("S3_BUCKET_NAME")}/raw/{now.strftime("%d-%m-%Y_%H")}.csv'
     wr.s3.to_csv(df, path=filepath, index=False)
     return {"status": "OK"}
 
