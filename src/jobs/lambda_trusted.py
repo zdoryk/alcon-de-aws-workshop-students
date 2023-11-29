@@ -15,7 +15,7 @@ def clean_age_column(df: pd.DataFrame) -> pd.DataFrame:
     min_years = 0
     max_years = 100
 
-    cleaned_df = df[df[AGE].notnull()]
+    cleaned_df = df[df[AGE].notna()]
     cleaned_df = cleaned_df[
         (min_years <= cleaned_df[AGE]) & (cleaned_df[AGE] <= max_years)
     ]
