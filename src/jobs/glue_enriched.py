@@ -52,8 +52,8 @@ def main():
     enriched_df = create_full_names(enriched_df)
     enriched_df = add_age_group(enriched_df)
 
-    enriched_path = f's3://{bucket_name}/enriched/{now.strftime("%d-%m-%Y_%H")}.csv'
-    wr.s3.to_csv(enriched_df, path=enriched_path, index=False)
+    enriched_path = f's3://{bucket_name}/enriched/{now.strftime("%d-%m-%Y_%H")}.parquet'
+    wr.s3.to_parquet(enriched_df, path=enriched_path, index=False)
 
 
 main()
