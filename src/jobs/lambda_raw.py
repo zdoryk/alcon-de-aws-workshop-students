@@ -28,7 +28,7 @@ def get_data_df(hour: str):
 
         df["FULL_NAME"] = df.apply(idioms, axis=1)
 
-        max_age = df["AGE"].max()
+        max_age = int(df["AGE"].max())
         age_bins = list(range(0, max_age + 10, 10))
         df["AGE_GROUP"] = pd.cut(df["AGE"], bins=age_bins, 
         labels=[f"{i}-{i+9}" for i in range(0, max_age, 10)], right=False)
