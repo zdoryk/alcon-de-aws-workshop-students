@@ -76,7 +76,7 @@ module "aws_glue" {
 }
 
 # Adding step function (Our main workflow)
-module "aws_sfn_state_machine_some_change_for_testing" {
+module "aws_sfn_state_machine" {
   source              = "./modules/terraform-aws-step-function"
   glue_job_arn        = module.aws_glue.glue_job_arn_python_shell
   glue_job_name       = module.aws_glue.glue_job_name_python_shell
