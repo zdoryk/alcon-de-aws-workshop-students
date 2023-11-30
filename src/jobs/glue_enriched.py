@@ -1,4 +1,3 @@
-import sys
 import awswrangler as wr
 import logging
 from datetime import datetime, timedelta
@@ -62,13 +61,26 @@ def main():
     df = add_age_group(df)
     df = create_died_column(df)
 
-    if df is not None:
-        s3_file_path = f"enriched/{date}-{end_time[:2]}.csv"
+    dtypes = {
+        'FIRST_NAME': 'varchar(40)',
+        'LAST_NAME': 'varchar(40)',
+        'SEX': 'varchar(6)',
+        'AGE': 'int',
+        'DATE_DIED': 'varchar(10)',
+        'INGESTION_DATETIME': 'varchar(20)',
+        'FULL_NAME': 'varchar(80)',
+        'AGE_GROUP': 'varchar(7)',
+        'DIED': 'varchar(5)',
+    }
 
-        wr.s3.to_csv(
+    if df is not None:
+        s3_file_path = f"enriched/{date}-{end_time[:2]}.parquet"
+
+        wr.s3.to_parquet(
             df=pd.DataFrame(df),
             path=f's3://{BUCKET_NAME}/{s3_file_path}',
             index=False,
+            dtype=dtypes,
         )
 
     logging.info("File Uploaded to S3")
