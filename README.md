@@ -1,3 +1,8 @@
+S3 bucket list: <br>
+https://s3.amazonaws.com/alcon-workshop-data-746590502764 <br>
+https://s3.amazonaws.com/alcon-workshop-athena-output-746590502764 <br>
+https://s3.amazonaws.com/alcon-workshop-glue-code-746590502764
+
 
 # Data Engineering Workshop
 
