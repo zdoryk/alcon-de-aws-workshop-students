@@ -9,6 +9,29 @@ logging.basicConfig(level=logging.INFO)
 BUCKET_NAME = 'alcon-workshop-data-746590502764'
 
 
+def get_time_range():
+    current_utc_datetime = datetime.utcnow()
+
+    # Start time
+    start_time_utc = current_utc_datetime - timedelta(hours=1)
+
+    # Yesterday Check
+    if start_time_utc.date() < current_utc_datetime.date():
+        logging.error("Error: can't request data from the previous day.")
+        return {"status": "Error"}
+
+    # End time utc
+    end_time_utc = current_utc_datetime
+    date_format = "%d-%m-%Y"
+    time_format = "%H:%M"
+    
+    date = start_time_utc.strftime(date_format)
+    start_time = f"{start_time_utc.strftime(time_format)[:2]}:00"
+    end_time = f"{end_time_utc.strftime(time_format)[:2]}:00"
+
+    return date, start_time, end_time
+
+
 def get_data_df(date: str, start_time: str, end_time: str):
     url = f"https://43bhzz3c3f.execute-api.us-east-1.amazonaws.com/v1/data?date={date}&start_time={start_time}&end_time={end_time}"
     headers = {"Authorization": "Bearer 1q2w3e4r5t"}
@@ -25,31 +48,12 @@ def get_data_df(date: str, start_time: str, end_time: str):
 def main(event, context):
     logging.info("Starting lambda_raw job")
 
-    current_utc_datetime = datetime.utcnow()
-
-    # Start time
-    start_time_utc = current_utc_datetime - timedelta(hours=1)
-
-    # Yesterday Check
-    if start_time_utc.date() < current_utc_datetime.date():
-        logging.error("Error: can't request data from previous day.")
-        return {"status": "Error"}
-
-    # End time utc
-    end_time_utc = current_utc_datetime
-    date_format = "%d-%m-%Y"
-    time_format = "%H:%M"
-    date = start_time_utc.strftime(date_format)
-    start_time = f"{start_time_utc.strftime(time_format)[:2]}:00"
-    end_time = f"{end_time_utc.strftime(time_format)[:2]}:00"
-    logging.info(start_time)
-    logging.info(end_time)
-    logging.info(date)
-
+    date, start_time, end_time = get_time_range()
+    
     data_response = get_data_df(date, start_time, end_time)
 
     if data_response is not None:
-        s3_file_path = f"raw/{date}-{start_time[:2]}.csv"
+        s3_file_path = f"raw/{date}-{end_time[:2]}.csv"
 
         # Dataframe -> CSV
         wr.s3.to_csv(
