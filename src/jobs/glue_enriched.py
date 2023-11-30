@@ -15,7 +15,7 @@ bucket_name = args["S3_BUCKET_NAME"]
 def create_died_column(df: pd.DataFrame) -> pd.DataFrame:
     logging.info('Creating died column')
 
-    df['IS_DEAD'] = df['DATE_DIED'] == '9999-99-99'
+    df['IS_DEAD'] = df['DATE_DIED'] != '9999-99-99'
     return df
 
 
