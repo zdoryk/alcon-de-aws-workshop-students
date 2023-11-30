@@ -7,6 +7,7 @@ logging.basicConfig(level=logging.INFO)
 
 BUCKET_NAME = 'alcon-workshop-data-746590502764'
 
+
 def get_time_range():
     current_utc_datetime = datetime.utcnow()
     start_time_utc = current_utc_datetime - timedelta(hours=1)
@@ -22,26 +23,23 @@ def get_time_range():
 
     return date, start_time, end_time
 
+
 def clean_age_column(df: pd.DataFrame) -> pd.DataFrame:
-    # Negative age check
     df = df[df['AGE'] >= 0]
-
-    # filtering ages > 122
     df = df[df['AGE'] <= 122]
-
-    # filtering nulls
     df = df.dropna(subset=['AGE'])
 
     return df
+
 
 def main(handler=None, context=None):
     logging.info("Starting lambda_raw job")
 
     date, start_time, end_time = get_time_range()
-   
+
     s3_file_path = f"raw/{date}-{end_time[:2]}.csv"
-    
-    df = wr.s3.read_csv(f's3://{BUCKET_NAME}/{s3_file_path}')    
+
+    df = wr.s3.read_csv(f's3://{BUCKET_NAME}/{s3_file_path}')
 
     # Clean age column
     df_cleaned = clean_age_column(df)
@@ -51,13 +49,15 @@ def main(handler=None, context=None):
 
         # Dataframe -> CSV
         wr.s3.to_csv(
-        df=pd.DataFrame(df_cleaned),
-        path=f's3://{BUCKET_NAME}/{s3_file_path}',
+            df=pd.DataFrame(df_cleaned),
+            path=f's3://{BUCKET_NAME}/{s3_file_path}',
+            index=False,
         )
 
     logging.info(f"Saved cleaned data")
 
     return {"status": "OK"}
+
 
 if __name__ == "__main__":
     main()

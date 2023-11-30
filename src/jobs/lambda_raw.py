@@ -28,21 +28,23 @@ def get_time_range():
 def get_data_df(date: str, start_time: str, end_time: str):
     url = f"https://43bhzz3c3f.execute-api.us-east-1.amazonaws.com/v1/data?date={date}&start_time={start_time}&end_time={end_time}"
     headers = {"Authorization": "Bearer 1q2w3e4r5t"}
-    
+
     response = requests.get(url, headers=headers)
-    
+
     if response.status_code == 200:
         data = response.json()
         return data
     else:
-        logging.error(f"Failed to fetch data. Status code: {response.status_code}")
+        logging.error(
+            f"Failed to fetch data. Status code: {response.status_code}")
         return None
+
 
 def main(event, context):
     logging.info("Starting lambda_raw job")
 
     date, start_time, end_time = get_time_range()
-    
+
     data_response = get_data_df(date, start_time, end_time)
 
     if data_response is not None:
@@ -50,13 +52,14 @@ def main(event, context):
 
         # Dataframe -> CSV
         wr.s3.to_csv(
-        df=pd.DataFrame(data_response),
-        path=f's3://{BUCKET_NAME}/{s3_file_path}',
+            df=pd.DataFrame(data_response),
+            path=f's3://{BUCKET_NAME}/{s3_file_path}',
+            index=False,
         )
 
     logging.info("File Uploaded to S3")
     return {"status": "OK"}
 
+
 if __name__ == "__main__":
     main(None, None)
-
