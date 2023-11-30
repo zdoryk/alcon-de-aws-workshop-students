@@ -11,8 +11,6 @@ BUCKET_NAME = 'alcon-workshop-data-746590502764'
 
 def get_time_range():
     current_utc_datetime = datetime.utcnow()
-
-    # Start time
     start_time_utc = current_utc_datetime - timedelta(hours=1)
 
     # Yesterday Check
@@ -20,14 +18,9 @@ def get_time_range():
         logging.error("Error: can't request data from the previous day.")
         return {"status": "Error"}
 
-    # End time utc
-    end_time_utc = current_utc_datetime
-    date_format = "%d-%m-%Y"
-    time_format = "%H:%M"
-    
-    date = start_time_utc.strftime(date_format)
-    start_time = f"{start_time_utc.strftime(time_format)[:2]}:00"
-    end_time = f"{end_time_utc.strftime(time_format)[:2]}:00"
+    date = start_time_utc.strftime('%d-%m-%Y')
+    start_time = f'{start_time_utc.hour}:00'
+    end_time = f'{(start_time_utc+timedelta(hours=1)).hour}:00'
 
     return date, start_time, end_time
 
