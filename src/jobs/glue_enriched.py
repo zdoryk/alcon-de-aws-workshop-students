@@ -35,8 +35,8 @@ def create_full_name(row):
 
 
 def add_age_group(df):
-    df['AGE_GROUP'] = ((df['AGE'] - 1) // 10 * 10 + 1).astype(int).astype(str) + \
-        '-' + ((df['AGE'] - 1) // 10 * 10 + 9).astype(int).astype(str)
+    df['AGE_GROUP'] = ((df['AGE']) // 10 * 10).astype(int).astype(str) + \
+        '-' + ((df['AGE']) // 10 * 10 + 9).astype(int).astype(str)
 
     return df
 
