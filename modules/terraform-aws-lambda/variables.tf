@@ -39,7 +39,6 @@ variable "arguments" {
 
 variable "s3_bucket_name" {}
 variable "s3_bucket_arn" {}
-variable "state_machine_arn" {}
 
 variable "handler" {} # src.jobs.lambda_raw.handler
 

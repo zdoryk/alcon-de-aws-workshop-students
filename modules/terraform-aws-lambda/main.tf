@@ -32,23 +32,13 @@ resource "aws_iam_policy" "LambdaPolicy" {
         "Effect": "Allow"
       },
       {
+        # Source: https://docs.aws.amazon.com/ses/latest/dg/control-user-access.html#iam-and-ses-examples-email-sending-actions
         "Effect": "Allow",
         "Action": [
-            "states:StartExecution"
+            "ses:SendEmail",
+            "ses:SendRawEmail"
         ],
-        "Resource" : var.state_machine_arn
-      },
-      {
-        "Effect": "Allow",
-        "Action": [
-            "s3:GetObject",
-            "s3:PutObject",
-            "s3:ListBucket"
-        ],
-        "Resource" : [
-          var.s3_bucket_arn,
-          "${var.s3_bucket_arn}/*"
-        ]
+        "Resource" : "*"
       }
     ]
   })
@@ -82,6 +72,8 @@ resource "aws_lambda_function" "alcon-workshop-lambda" {
     variables = {
       AUTH_TOKEN = "1q2w3e4r5t",  # A good practice is to use AWS Secrets Manager to store secrets and sensitive info but for this workshop we will use a simple variable
       S3_BUCKET_NAME = var.s3_bucket_name,
+      RECEIVER_EMAIL = "bot1.skalermo@gmail.com",
+      SENDER_EMAIL = "bot1.skalermo@gmail.com"
     }
   }
 }
