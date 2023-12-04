@@ -1,6 +1,11 @@
 
 # Data Engineering Workshop
 
+## Final project
+
+- AWS Lambda function for email notifications [commit diff](https://github.com/zdoryk/alcon-de-aws-workshop-students/commit/063684b5b31737f44c9c5d818aea50d2555cb709)
+- Alteryx workflow for the final project [github link](https://github.com/zdoryk/alcon-de-aws-workshop-students/blob/dev/roman/workflow.yxzp)
+
 ## Shared S3 buckets
 
 I prepared static websites with file listings. Links below:
