@@ -5,86 +5,105 @@ import pandas as pd
 
 logging.basicConfig(level=logging.INFO)
 
-# args = getResolvedOptions(sys.argv, ["S3_BUCKET_NAME"])
-# bucket_name = args["S3_BUCKET_NAME"]
 BUCKET_NAME = 'alcon-workshop-data-746590502764'
 
 
-def get_time_range():
+def get_path_info():
     current_utc_datetime = datetime.utcnow()
     start_time_utc = current_utc_datetime - timedelta(hours=1)
 
     # Yesterday Check
     if start_time_utc.date() < current_utc_datetime.date():
         logging.error("Error: can't request data from the previous day.")
-        return {"status": "Error"}
+        raise ValueError("Can't request data from the previous day.")
 
-    date = start_time_utc.strftime('%d-%m-%Y')
-    start_time = f'{start_time_utc.hour}:00'
-    end_time = f'{(start_time_utc+timedelta(hours=1)).hour}:00'
-
-    return date, start_time, end_time
+    file_date = start_time_utc.strftime('%d-%m-%Y-%H')
+    return file_date
 
 
 def create_full_name(row):
     if row["AGE"] < 21:
         return f"{row['FIRST_NAME']} {row['LAST_NAME']}"
     title = "Mr" if row["SEX"] == "Male" else "Mrs"
-
     return f"{title}. {row['FIRST_NAME']} {row['LAST_NAME']}"
 
 
 def add_age_group(df):
-    df['AGE_GROUP'] = ((df['AGE']) // 10 * 10).astype(int).astype(str) + \
-        '-' + ((df['AGE']) // 10 * 10 + 9).astype(int).astype(str)
-
+    bins = range(0, int(df['AGE'].max()) + 10, 10)
+    labels = [f"{i}-{i+9}" for i in bins[:-1]]
+    df['AGE_GROUP'] = pd.cut(df['AGE'], bins=bins, labels=labels, right=False)
     return df
 
 
 def create_died_column(df):
-    df['DIED'] = df['DATE_DIED'].apply(
+    df['IS_DEAD'] = df['DATE_DIED'].apply(
         lambda x: True if x != '9999-99-99' else False)
-    df['DIED'] = df['DIED'].astype(bool)
-
     return df
+
+
+def read_trusted_csv_from_s3(file_date):
+    try:
+        df = wr.s3.read_csv(
+            f's3://{BUCKET_NAME}/trusted/{file_date}.csv'
+        )
+    except Exception as e:
+        logging.error(f"Failed to load data: {e}")
+        return None
+    return df
+
+
+def process_data(df):
+    df['FULL_NAME'] = df.apply(create_full_name, axis=1)
+    df = add_age_group(df)
+    df = create_died_column(df)
+    return df
+
+
+def write_enriched_df_to_s3(df, dtypes, file_date, BUCKET_NAME):
+    try:
+        wr.s3.to_parquet(
+            df=pd.DataFrame(df),
+            path=f's3://{BUCKET_NAME}/enriched/{file_date}.parquet',
+            index=False,
+            dtype=dtypes,
+        )
+    except Exception as e:
+        logging.error(f"Failed to write DataFrame to S3. Error: {e}")
+        return {"status": "Failed"}
+    return {"status": "OK"}
 
 
 def main():
     logging.info("Starting Glue enriched job")
-    date, start_time, end_time = get_time_range()
 
-    df = wr.s3.read_csv(
-        f's3://{BUCKET_NAME}/trusted/{date}-{end_time[:2]}.csv'
-    )
+    try:
+        file_date = get_path_info()
+    except Exception as e:
+        logging.error(e)
+        return {"status": "Failed", "error": str(e)}
 
-    df['FULL_NAME'] = df.apply(create_full_name, axis=1)
-    df = add_age_group(df)
-    df = create_died_column(df)
+    df = read_trusted_csv_from_s3(file_date)
+
+    df = process_data(df)
+    logging.info("Finished processing data")
 
     dtypes = {
-        'FIRST_NAME': 'varchar(40)',
-        'LAST_NAME': 'varchar(40)',
-        'SEX': 'varchar(6)',
-        'AGE': 'int',
-        'DATE_DIED': 'varchar(10)',
-        'INGESTION_DATETIME': 'varchar(20)',
-        'FULL_NAME': 'varchar(80)',
+        'FIRST_NAME': 'varchar(50)',
+        'LAST_NAME': 'varchar(50)',
+        'SEX': 'varchar(7)',
+        'AGE': 'smallint',
+        'DATE_DIED': 'varchar(20)',
+        'INGESTION_DATETIME': 'timestamp',
+        'FULL_NAME': 'varchar(100)',
         'AGE_GROUP': 'varchar(7)',
-        'DIED': 'varchar(5)',
+        'IS_DEAD': 'boolean',
     }
 
-    if df is not None:
-        s3_file_path = f"enriched/{date}-{end_time[:2]}.parquet"
+    write_enriched_df_to_s3(df, dtypes, file_date, BUCKET_NAME)
 
-        wr.s3.to_parquet(
-            df=pd.DataFrame(df),
-            path=f's3://{BUCKET_NAME}/{s3_file_path}',
-            index=False,
-            dtype=dtypes,
-        )
-
-    logging.info("File Uploaded to S3")
+    logging.info(f"Finished writing data to S3")
     return {"status": "OK"}
 
 
-main()
+if __name__ == "__main__":
+    main()
