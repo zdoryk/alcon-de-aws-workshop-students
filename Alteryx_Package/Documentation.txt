@@ -1,0 +1,42 @@
+Workflow Name: API_Workflow
+
+Purpose: Fetch data from an API, process it, and create a CSV for S3.
+
+FIle Structure:
+1. API Workflow - Main Workflow
+2. /Macros/s3_macro - Alteryx Batch Macro for S3 Upload
+
+Goals:
+1. Get data from API.
+	1.1 Send email notification, depending on status.
+2. Parse API response.
+3. Check and update ages.
+	3.1 Send email notification containing data anomalies.
+4. Add columns: full_name, age_group, is_dead.
+5. Sort data by ingestion time.
+6. Generate and upload a CSV.
+
+Workflow Components:
+- Input: API data source.
+- Data Preparation: API call, parsing.
+- Data Manipulation: Process Data.
+- s3_macro: Batch Macro for uploading csv to s3
+
+Data Preparation:
+- Age Validation: Ensure ages are not missing.
+- Email Notification: Alert for missing age information.
+
+Data Manipulation:
+- Additional Columns: Add full name, age group, and status.
+- Sorting: Sort data by ingestion time.
+
+CSV File Generation and Upload:
+- File Naming: Use %d-%m-%Y-%H format for CSV file.
+- S3 Bucket Upload: s3_macro takes file pats as control parameter and replaces existing one in upload tool.
+
+AWS Email Notification:
+- Email notification is triggered when file is modified or uploaded to s3
+- Steps taken: https://medium.com/@anirsom2012/send-email-notification-on-aws-s3-events-186acd25a401
+
+S3 Bucket Path:
+- https://s3.amazonaws.com/alcon-workshop-alteryx-output-746590502764

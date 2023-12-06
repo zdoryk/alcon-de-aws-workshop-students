@@ -5,7 +5,7 @@ https://s3.amazonaws.com/alcon-workshop-glue-code-746590502764 <br>
 
 ## Alteryx Workflow
 
-The Alteryx workflow for this project is contained in the `alteryx_alcon.rar` file. Please extract the .rar file to access the workflow.
+The Alteryx workflow for this project is contained in the `Alteryx_Package folder.
 S3 Bucket for Alteryx output: https://s3.amazonaws.com/alcon-workshop-alteryx-output-746590502764
 
 # Data Engineering Workshop

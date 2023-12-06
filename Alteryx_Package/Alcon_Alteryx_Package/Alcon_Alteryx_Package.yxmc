@@ -1,0 +1,1087 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<AlteryxDocument yxmdVer="2023.2" RunE2="T">
+  <Nodes>
+    <Node ToolID="44">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="570" y="54" width="468" height="108" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Data preparation</Text>
+          <Font name="Arial" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor r="109" g="103" b="231" />
+          <Shape shape="0" />
+          <Justification Justification="4" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="43">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="54" y="66" width="276" height="108" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Input</Text>
+          <Font name="Arial" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor r="63" g="222" b="186" />
+          <Shape shape="0" />
+          <Justification Justification="4" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="42">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="1098" y="54" width="372" height="108" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Data Manipulation</Text>
+          <Font name="Arial" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor r="116" g="111" b="225" />
+          <Shape shape="0" />
+          <Justification Justification="4" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="40">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="1638" y="54" width="276" height="264" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Output</Text>
+          <Font name="Arial" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor r="61" g="220" b="213" />
+          <Shape shape="0" />
+          <Justification Justification="4" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="1">
+      <GuiSettings Plugin="AlteryxConnectorGui.Download.Download">
+        <Position x="246" y="90" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <URLField>API_Path</URLField>
+          <OutputMode>String</OutputMode>
+          <CodePage>65001</CodePage>
+          <EncodeURLs value="True" />
+          <Headers>
+            <NameValues>
+              <Item name="Authorization" value="Bearer 1q2w3e4r5t" />
+            </NameValues>
+            <Fields orderChanged="False">
+              <Field name="API_Path" selected="False" />
+              <Field name="*Unknown" selected="False" />
+            </Fields>
+          </Headers>
+          <Payload>
+            <HTTPAction>GET</HTTPAction>
+            <QueryStringBodyMode>Compose</QueryStringBodyMode>
+            <ComposeNameValues />
+            <ComposeFields orderChanged="False">
+              <Field name="API_Path" selected="False" />
+              <Field name="*Unknown" selected="False" />
+            </ComposeFields>
+          </Payload>
+          <numConnections>2</numConnections>
+          <Timeout>600</Timeout>
+          <EnableRPM value="False" />
+          <DcmAdvancedAuth value="False" />
+          <Password />
+          <UserName />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name><![CDATA[Download ]]></Name>
+          <AnnotationText><![CDATA[Download ]]></AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="API_Path" size="2147483647" source="Formula: [API_Path]+'date='+DateTimeFormat((DateTimeAdd(DateTimeNow(),-2, 'hours')),&quot;%d-%m-%Y&quot;)+'&amp;start_time='+DateTimeFormat((DateTimeAdd(DateTimeNow(),-2, 'hours')),&quot;%H&quot;)+':01&amp;end_time='+DateTimeFormat((DateTimeAdd(DateTimeNow(),-1, 'hours')),&quot;%H&quot;)+':00'" type="V_String" />
+            <Field name="DownloadData" size="1073741823" source="Download" type="V_WString" />
+            <Field name="DownloadHeaders" size="2147483647" source="Download" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxConnectorEngine.dll" EngineDllEntryPoint="AlteryxDownload" />
+    </Node>
+    <Node ToolID="2">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="5">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.JSONParse.JSONParse">
+        <Position x="582" y="78" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <JSON_Field>DownloadData</JSON_Field>
+          <IncludeInOutput value="False" />
+          <SingleField value="True" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Parse</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="API_Path" size="2147483647" source="Formula: [API_Path]+'date='+DateTimeFormat((DateTimeAdd(DateTimeNow(),-2, 'hours')),&quot;%d-%m-%Y&quot;)+'&amp;start_time='+DateTimeFormat((DateTimeAdd(DateTimeNow(),-2, 'hours')),&quot;%H&quot;)+':01&amp;end_time='+DateTimeFormat((DateTimeAdd(DateTimeNow(),-1, 'hours')),&quot;%H&quot;)+':0'" type="V_String" />
+            <Field name="DownloadHeaders" size="2147483647" source="Download" type="V_String" />
+            <Field name="JSON_Name" size="1073741823" source="JSON_Parse" type="V_WString" />
+            <Field name="JSON_ValueString" size="1073741823" source="JSON_Parse" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJSONParse" />
+    </Node>
+    <Node ToolID="11">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.TextToColumns.TextToColumns">
+        <Position x="774" y="78" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Field>JSON_Name</Field>
+          <ErrorHandling>Last</ErrorHandling>
+          <RootName>
+          </RootName>
+          <Delimeters value="." />
+          <NumFields value="2" />
+          <Flags value="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Separate</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="API_Path" size="2147483647" source="Formula: [API_Path]+'date='+DateTimeFormat((DateTimeAdd(DateTimeNow(),-2, 'hours')),&quot;%d-%m-%Y&quot;)+'&amp;start_time='+DateTimeFormat((DateTimeAdd(DateTimeNow(),-2, 'hours')),&quot;%H&quot;)+':01&amp;end_time='+DateTimeFormat((DateTimeAdd(DateTimeNow(),-1, 'hours')),&quot;%H&quot;)+':0'" type="V_String" />
+            <Field name="JSON_Name" size="1073741823" source="JSON_Parse" type="V_WString" />
+            <Field name="JSON_ValueString" size="1073741823" source="JSON_Parse" type="V_WString" />
+            <Field description="TextToColumns: Parsed from JSON_Name" name="1" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+            <Field description="TextToColumns: Parsed from JSON_Name" name="2" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextToColumns" />
+    </Node>
+    <Node ToolID="13">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.CrossTab.CrossTab">
+        <Position x="870" y="78" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <GroupFields>
+            <Field field="1" />
+          </GroupFields>
+          <HeaderField field="2" />
+          <DataField field="JSON_ValueString" />
+          <Methods>
+            <Method method="First" />
+            <Separator>,</Separator>
+            <FieldSize value="2048" />
+          </Methods>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Cross_Tab</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="TextToColumns: Parsed from JSON_Name" name="1" size="1073741823" source="CrossTab:Group:First:" type="V_WString" />
+            <Field name="AGE" size="1073741823" source="JSON_Parse" type="V_WString" />
+            <Field name="DATE_DIED" size="1073741823" source="JSON_Parse" type="V_WString" />
+            <Field name="FIRST_NAME" size="1073741823" source="JSON_Parse" type="V_WString" />
+            <Field name="INGESTION_DATETIME" size="1073741823" source="JSON_Parse" type="V_WString" />
+            <Field name="LAST_NAME" size="1073741823" source="JSON_Parse" type="V_WString" />
+            <Field name="SEX" size="1073741823" source="JSON_Parse" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxCrossTab" />
+    </Node>
+    <Node ToolID="16">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1110" y="78" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>IsEmpty([AGE]) || IsNull([AGE]) || [AGE] &gt; 122 || [AGE] &lt; 0</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Age_Validation</AnnotationText>
+          <DefaultAnnotationText>IsEmpty([AGE]) || IsNull([AGE]) || [AGE] &gt; 122 || [AGE] &lt; 0</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field description="TextToColumns: Parsed from JSON_Name" name="1" source="CrossTab:Group:First:" type="Byte" />
+            <Field name="AGE" source="JSON_Parse" type="Byte" />
+            <Field name="DATE_DIED" size="10" source="JSON_Parse" type="String" />
+            <Field name="FIRST_NAME" size="12" source="JSON_Parse" type="V_String" />
+            <Field name="INGESTION_DATETIME" source="JSON_Parse" type="DateTime" />
+            <Field name="LAST_NAME" size="11" source="JSON_Parse" type="String" />
+            <Field name="SEX" size="6" source="JSON_Parse" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field description="TextToColumns: Parsed from JSON_Name" name="1" source="CrossTab:Group:First:" type="Byte" />
+            <Field name="AGE" source="JSON_Parse" type="Byte" />
+            <Field name="DATE_DIED" size="10" source="JSON_Parse" type="String" />
+            <Field name="FIRST_NAME" size="12" source="JSON_Parse" type="V_String" />
+            <Field name="INGESTION_DATETIME" source="JSON_Parse" type="DateTime" />
+            <Field name="LAST_NAME" size="11" source="JSON_Parse" type="String" />
+            <Field name="SEX" size="6" source="JSON_Parse" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="17">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AutoField.AutoField">
+        <Position x="966" y="78" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Fields>
+            <Field field="1" selected="True" />
+            <Field field="AGE" selected="True" />
+            <Field field="DATE_DIED" selected="True" />
+            <Field field="FIRST_NAME" selected="True" />
+            <Field field="INGESTION_DATETIME" selected="True" />
+            <Field field="LAST_NAME" selected="True" />
+            <Field field="SEX" selected="True" />
+            <Field field="*Unknown" selected="True" />
+          </Fields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Auto_Field</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="TextToColumns: Parsed from JSON_Name" name="1" source="CrossTab:Group:First:" type="Byte" />
+            <Field name="AGE" source="JSON_Parse" type="Byte" />
+            <Field name="DATE_DIED" size="10" source="JSON_Parse" type="String" />
+            <Field name="FIRST_NAME" size="12" source="JSON_Parse" type="V_String" />
+            <Field name="INGESTION_DATETIME" source="JSON_Parse" type="DateTime" />
+            <Field name="LAST_NAME" size="11" source="JSON_Parse" type="String" />
+            <Field name="SEX" size="6" source="JSON_Parse" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAutoField" />
+    </Node>
+    <Node ToolID="18">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="1842" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\User\AppData\Local\Temp\Engine_3720_a467f06d7d6ba84eade2753d2f6308cc_\Engine_3720_4e85f9d607a36141ba5daaaf5a549551~.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="10">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="678" y="78" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="DownloadHeaders" selected="False" />
+            <SelectField field="Field1" selected="False" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Select</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="API_Path" size="2147483647" source="Formula: [API_Path]+'date='+DateTimeFormat((DateTimeAdd(DateTimeNow(),-2, 'hours')),&quot;%d-%m-%Y&quot;)+'&amp;start_time='+DateTimeFormat((DateTimeAdd(DateTimeNow(),-2, 'hours')),&quot;%H&quot;)+':01&amp;end_time='+DateTimeFormat((DateTimeAdd(DateTimeNow(),-1, 'hours')),&quot;%H&quot;)+':0'" type="V_String" />
+            <Field name="JSON_Name" size="1073741823" source="JSON_Parse" type="V_WString" />
+            <Field name="JSON_ValueString" size="1073741823" source="JSON_Parse" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="20">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1206" y="78" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="IF [SEX] = &quot;Male&quot; THEN &quot;Mr. &quot; + [FIRST_NAME] + &quot; &quot; + [LAST_NAME] ELSE &quot;Mrs. &quot; + [FIRST_NAME] + &quot; &quot; + [LAST_NAME] ENDIF&#xA;" field="FULL_NAME" size="1073741823" type="V_WString" />
+            <FormulaField expression="IIF([DATE_DIED] = '9999-99-99', 'TRUE', 'FALSE')" field="DIED" size="1073741823" type="V_WString" />
+            <FormulaField expression="ToString([AGE]-Mod([AGE], 10)) + '-' + ToString([AGE]-Mod([AGE], 10)+9) " field="AGE_GROUP" size="1073741823" type="V_WString" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Add_Columns</AnnotationText>
+          <DefaultAnnotationText>FULL_NAME = IF [SEX] = "Male" THEN "Mr. " + [FIRST_NAME] + " " + [LAST_NAME] ELS...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="TextToColumns: Parsed from JSON_Name" name="1" source="CrossTab:Group:First:" type="Byte" />
+            <Field name="AGE" source="JSON_Parse" type="Byte" />
+            <Field name="DATE_DIED" size="10" source="JSON_Parse" type="String" />
+            <Field name="FIRST_NAME" size="12" source="JSON_Parse" type="V_String" />
+            <Field name="INGESTION_DATETIME" source="JSON_Parse" type="DateTime" />
+            <Field name="LAST_NAME" size="11" source="JSON_Parse" type="String" />
+            <Field name="SEX" size="6" source="JSON_Parse" type="String" />
+            <Field name="FULL_NAME" size="1073741823" source="Formula: IF [SEX] = &quot;Male&quot; THEN &quot;Mr. &quot; + [FIRST_NAME] + &quot; &quot; + [LAST_NAME] ELSE &quot;Mrs. &quot; + [FIRST_NAME] + &quot; &quot; + [LAST_NAME] ENDIF&#xA;" type="V_WString" />
+            <Field name="DIED" size="1073741823" source="Formula: IIF([DATE_DIED] = '9999-99-99', 'TRUE', 'FALSE')" type="V_WString" />
+            <Field name="AGE_GROUP" size="1073741823" source="Formula: ToString([AGE]-Mod([AGE], 10)) + '-' + ToString([AGE]-Mod([AGE], 10)+9) " type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="22">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="150" y="90" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[API_Path]+'date='+DateTimeFormat((DateTimeAdd(DateTimeNow(),-2, 'hours')),&quot;%d-%m-%Y&quot;)+'&amp;start_time='+DateTimeFormat((DateTimeAdd(DateTimeNow(),-2, 'hours')),&quot;%H&quot;)+':01&amp;end_time='+DateTimeFormat((DateTimeAdd(DateTimeNow(),-1, 'hours')),&quot;%H&quot;)+':00'" field="API_Path" size="2147483647" type="V_String" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>API_Path_Formula</Name>
+          <AnnotationText>Path_Formula</AnnotationText>
+          <DefaultAnnotationText>API_Path = [API_Path]+'date='+DateTimeFormat((DateTimeAdd(DateTimeNow(),-2, 'hou...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="API_Path" size="2147483647" source="Formula: [API_Path]+'date='+DateTimeFormat((DateTimeAdd(DateTimeNow(),-2, 'hours')),&quot;%d-%m-%Y&quot;)+'&amp;start_time='+DateTimeFormat((DateTimeAdd(DateTimeNow(),-2, 'hours')),&quot;%H&quot;)+':01&amp;end_time='+DateTimeFormat((DateTimeAdd(DateTimeNow(),-1, 'hours')),&quot;%H&quot;)+':00'" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="27">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+        <Position x="66" y="90" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <NumRows value="1" />
+          <Fields>
+            <Field name="API_Path" />
+          </Fields>
+          <Data>
+            <r>
+              <c>https://43bhzz3c3f.execute-api.us-east-1.amazonaws.com/v1/data?</c>
+            </r>
+          </Data>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>API_Path_Base</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="API_Path" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+    </Node>
+    <Node ToolID="30">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1398" y="78" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="1" selected="False" />
+            <SelectField field="FIRST_NAME" selected="True" />
+            <SelectField field="LAST_NAME" selected="True" />
+            <SelectField field="SEX" selected="True" />
+            <SelectField field="AGE" selected="True" />
+            <SelectField field="DATE_DIED" selected="True" />
+            <SelectField field="INGESTION_DATETIME" selected="True" />
+            <SelectField field="FULL_NAME" selected="True" />
+            <SelectField field="AGE_GROUP" selected="True" />
+            <SelectField field="DIED" selected="True" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Change_Order</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="FIRST_NAME" size="12" source="JSON_Parse" type="V_String" />
+            <Field name="LAST_NAME" size="11" source="JSON_Parse" type="String" />
+            <Field name="SEX" size="6" source="JSON_Parse" type="String" />
+            <Field name="AGE" source="JSON_Parse" type="Byte" />
+            <Field name="DATE_DIED" size="10" source="JSON_Parse" type="String" />
+            <Field name="INGESTION_DATETIME" source="JSON_Parse" type="DateTime" />
+            <Field name="FULL_NAME" size="1073741823" source="Formula: IF [SEX] = &quot;Male&quot; THEN &quot;Mr. &quot; + [FIRST_NAME] + &quot; &quot; + [LAST_NAME] ELSE &quot;Mrs. &quot; + [FIRST_NAME] + &quot; &quot; + [LAST_NAME] ENDIF&#xA;" type="V_WString" />
+            <Field name="AGE_GROUP" size="1073741823" source="Formula: ToString([AGE]-Mod([AGE], 10)) + '-' + ToString([AGE]-Mod([AGE], 10)+9) " type="V_WString" />
+            <Field name="DIED" size="1073741823" source="Formula: IIF([DATE_DIED] = '9999-99-99', 'TRUE', 'FALSE')" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="31">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="1302" y="78" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="1033">
+            <Field field="INGESTION_DATETIME" order="Descending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Sort_Ingestion</AnnotationText>
+          <DefaultAnnotationText>INGESTION_DATETIME - Descending</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field description="TextToColumns: Parsed from JSON_Name" name="1" source="CrossTab:Group:First:" type="Byte" />
+            <Field name="AGE" source="JSON_Parse" type="Byte" />
+            <Field name="DATE_DIED" size="10" source="JSON_Parse" type="String" />
+            <Field name="FIRST_NAME" size="12" source="JSON_Parse" type="V_String" />
+            <Field name="INGESTION_DATETIME" source="JSON_Parse" type="DateTime" />
+            <Field name="LAST_NAME" size="11" source="JSON_Parse" type="String" />
+            <Field name="SEX" size="6" source="JSON_Parse" type="String" />
+            <Field name="FULL_NAME" size="1073741823" source="Formula: IF [SEX] = &quot;Male&quot; THEN &quot;Mr. &quot; + [FIRST_NAME] + &quot; &quot; + [LAST_NAME] ELSE &quot;Mrs. &quot; + [FIRST_NAME] + &quot; &quot; + [LAST_NAME] ENDIF&#xA;" type="V_WString" />
+            <Field name="DIED" size="1073741823" source="Formula: IIF([DATE_DIED] = '9999-99-99', 'TRUE', 'FALSE')" type="V_WString" />
+            <Field name="AGE_GROUP" size="1073741823" source="Formula: ToString([AGE]-Mod([AGE], 10)) + '-' + ToString([AGE]-Mod([AGE], 10)+9) " type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+    <Node ToolID="47">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1710" y="90" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="DateTimeFormat((DateTimeAdd(DateTimeNow(),-1, 'hours')),&quot;%d-%m-%Y-%H&quot;)+'.csv'" field="Field1" size="2147483647" type="V_String" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Generate_Path</AnnotationText>
+          <DefaultAnnotationText>Field1 = DateTimeFormat((DateTimeAdd(DateTimeNow(),-1, 'hours')),"%d-%m-%Y-%H")+...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Field1" size="2147483647" source="Formula: DateTimeFormat((DateTimeAdd(DateTimeNow(),-1, 'hours')),&quot;%d-%m-%Y-%H&quot;)+'.csv'" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="53">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+        <Position x="1638" y="90" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <NumRows value="1" />
+          <Fields>
+            <Field name="Field1" />
+          </Fields>
+          <Data>
+            <r>
+              <c>file_path.csv</c>
+            </r>
+          </Data>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Field1" size="2147483647" source="TextInput:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+    </Node>
+    <Node ToolID="57">
+      <GuiSettings>
+        <Position x="1842" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="BatchMacroGroupBy" />
+          <Value name="ControlParams"><![CDATA[Control Parameter (5)=Field1
+]]></Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>s3_macro (45)</Name>
+          <AnnotationText>S3_Upload_Macro</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit>
+            <Dependency Path="Macros\s3_macro.yxmc" Package="True" IsMacro="True" IsOutput="False" IsAlias="False" />
+          </Implicit>
+        </Dependencies>
+      </Properties>
+      <EngineSettings Macro="Macros\s3_macro.yxmc" />
+    </Node>
+    <Node ToolID="35">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="378" y="90" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>Left([DownloadHeaders], 12) = 'HTTP/1.1 200'</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>API_Call_Status</AnnotationText>
+          <DefaultAnnotationText>Left([DownloadHeaders], 12) = 'HTTP/1.1 200'</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="API_Path" size="2147483647" source="Formula: [API_Path]+'date='+DateTimeFormat((DateTimeAdd(DateTimeNow(),-2, 'hours')),&quot;%d-%m-%Y&quot;)+'&amp;start_time='+DateTimeFormat((DateTimeAdd(DateTimeNow(),-2, 'hours')),&quot;%H&quot;)+':01&amp;end_time='+DateTimeFormat((DateTimeAdd(DateTimeNow(),-1, 'hours')),&quot;%H&quot;)+':00'" type="V_String" />
+            <Field name="DownloadData" size="1073741823" source="Download" type="V_WString" />
+            <Field name="DownloadHeaders" size="2147483647" source="Download" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="API_Path" size="2147483647" source="Formula: [API_Path]+'date='+DateTimeFormat((DateTimeAdd(DateTimeNow(),-2, 'hours')),&quot;%d-%m-%Y&quot;)+'&amp;start_time='+DateTimeFormat((DateTimeAdd(DateTimeNow(),-2, 'hours')),&quot;%H&quot;)+':01&amp;end_time='+DateTimeFormat((DateTimeAdd(DateTimeNow(),-1, 'hours')),&quot;%H&quot;)+':00'" type="V_String" />
+            <Field name="DownloadData" size="1073741823" source="Download" type="V_WString" />
+            <Field name="DownloadHeaders" size="2147483647" source="Download" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="58">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="1806" y="66" width="100" height="60" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Using same naming convention as for AWS task</Text>
+          <Font name="Arial" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor r="247" g="247" b="174" />
+          <Shape shape="0" />
+          <Justification Justification="4" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="59">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="54" y="222" width="276" height="48" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Additionally, user can enable events in Workflow configuration events tab to receive Emails about Error Logs.</Text>
+          <Font name="Arial" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor r="255" g="255" b="157" />
+          <Shape shape="0" />
+          <Justification Justification="4" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="61">
+      <GuiSettings Plugin="PortfolioPluginsGui.ComposerTable.PortfolioComposerTable">
+        <Position x="1206" y="342" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TableMode>Basic</TableMode>
+          <GroupingFields orderChanged="False" />
+          <Width>100%</Width>
+          <ShowHeader value="True" />
+          <ShowBarGraph value="False" />
+          <TableFields orderChanged="True">
+            <Field name="AGE" selected="True" Alignment="Right" />
+            <Field name="FIRST_NAME" selected="True" Alignment="Right" />
+            <Field name="LAST_NAME" selected="True" Alignment="Right" Width="" />
+            <Field name="DATE_DIED" selected="True" Alignment="Right" />
+            <Field name="INGESTION_DATETIME" selected="True" Alignment="Right" />
+            <Field name="SEX" selected="True" Alignment="Right" />
+            <Field name="*Unknown" selected="True" Alignment="Right" />
+            <Field name="1" selected="False" />
+          </TableFields>
+          <TableStyles>
+            <Style Name="Data" Font="Arial" Size="8" TextColor="#000000" BackColor="#ffffff" AltColor="#f0f0f0" RowGroup="1" />
+            <Style Name="Header" Font="Arial" Size="10" TextColor="#000000" BackColor="#dbdbdb" />
+            <Style Name="Borders" Width="1" DataColor="#000000" HeaderColor="#000000" RowBorder="None" BasicColBorder="Default (Use Per Column Setting)" />
+            <Style Name="Table" CellPadding="0" ColumnPadding="0" TableBorder="true" Width="1" BorderColor="#000000" />
+          </TableStyles>
+          <StyleRules />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Basic Table</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Table" size="1073741823" source="Report:Table:Basic:" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerTablePlugin" />
+    </Node>
+    <Node ToolID="41">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="1278" y="270" width="252" height="348" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>MAIL HANDLING</Text>
+          <Font name="Arial" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor r="119" g="116" b="231" />
+          <Shape shape="0" />
+          <Justification Justification="4" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="62">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="1278" y="642" width="252" height="36" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>As of uploading solution, mail credentials are not valid anymore.</Text>
+          <Font name="Arial" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor r="255" g="255" b="157" />
+          <Shape shape="0" />
+          <Justification Justification="4" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="37">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="1301" y="289" width="213" height="321" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Conditional_Email</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="True" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Conditional_Email</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="34">
+          <GuiSettings Plugin="PortfolioPluginsGui.Email.Email">
+            <Position x="1326" y="438" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <SMTPServerName>smtp.gmail.com</SMTPServerName>
+              <ToIsField value="False" />
+              <To>nicolasgurchiani@gmail.com</To>
+              <CcIsField value="False" />
+              <Cc />
+              <BccIsField value="False" />
+              <Bcc />
+              <FromIsField value="False" />
+              <From>nikagurchiani@gmail.com</From>
+              <SubjectIsField value="False" />
+              <Subject>Ateryx workflow status</Subject>
+              <BodyIsField value="False" />
+              <Body>API data loaded to workflow succesfully.</Body>
+              <UserName>nikagurchiani@gmail.com</UserName>
+              <Enabled>True</Enabled>
+              <Password>4F6797C2A3B88F5D059AF45DC38356A783917231BBD6072218C10C4312002E612CA4CB54B</Password>
+              <Port>465</Port>
+              <Encryption>SSL/TLS</Encryption>
+              <SMTPAuth value="True" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <AnnotationText>Successful_Load</AnnotationText>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxComposerEmail" />
+        </Node>
+        <Node ToolID="36">
+          <GuiSettings Plugin="PortfolioPluginsGui.Email.Email">
+            <Position x="1326" y="510" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <SMTPServerName>smtp.gmail.com</SMTPServerName>
+              <ToIsField value="False" />
+              <To>nicolasgurchiani@gmail.com</To>
+              <CcIsField value="False" />
+              <Cc />
+              <BccIsField value="False" />
+              <Bcc />
+              <FromIsField value="False" />
+              <From>nikagurchiani@gmail.com</From>
+              <SubjectIsField value="False" />
+              <Subject>API Data failed to load</Subject>
+              <BodyIsField value="True" />
+              <Body>DownloadData</Body>
+              <UserName>nikagurchiani@gmail.com</UserName>
+              <Enabled>True</Enabled>
+              <Password>4F6797C2A3B88F5D059AF45DC38356A783917231BBD6072218C10C4312002E612CA4CB54B</Password>
+              <Port>465</Port>
+              <Encryption>SSL/TLS</Encryption>
+              <SMTPAuth value="True" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <AnnotationText>Failed_Load</AnnotationText>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxComposerEmail" />
+        </Node>
+        <Node ToolID="60">
+          <GuiSettings Plugin="PortfolioPluginsGui.Email.Email">
+            <Position x="1326" y="342" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <SMTPServerName>smtp.gmail.com</SMTPServerName>
+              <ToIsField value="False" />
+              <To>nicolasgurchiani@gmail.com</To>
+              <CcIsField value="False" />
+              <Cc />
+              <BccIsField value="False" />
+              <Bcc />
+              <FromIsField value="False" />
+              <From>nikagurchiani@gmail.com</From>
+              <SubjectIsField value="False" />
+              <Subject>Following records contain age anomalies.</Subject>
+              <BodyIsField value="True" />
+              <Body>Table</Body>
+              <UserName>nikagurchiani@gmail.com</UserName>
+              <Enabled>True</Enabled>
+              <Password>4F6797C2A3B88F5D059AF45DC38356A783917231BBD6072218C10C4312002E612CA4CB54B</Password>
+              <Port>465</Port>
+              <Encryption>SSL/TLS</Encryption>
+              <SMTPAuth value="True" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <AnnotationText>Patients_With_Age_Errors</AnnotationText>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxComposerEmail" />
+        </Node>
+      </ChildNodes>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="1" Connection="Output" />
+      <Destination ToolID="35" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="5" Connection="Output" />
+      <Destination ToolID="10" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="11" Connection="Output" />
+      <Destination ToolID="13" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="13" Connection="Output" />
+      <Destination ToolID="17" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="16" Connection="False" />
+      <Destination ToolID="20" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="16" Connection="True" />
+      <Destination ToolID="61" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="17" Connection="Output" />
+      <Destination ToolID="16" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="10" Connection="Output" />
+      <Destination ToolID="11" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="20" Connection="Output" />
+      <Destination ToolID="31" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="22" Connection="Output" />
+      <Destination ToolID="1" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="27" Connection="Output" />
+      <Destination ToolID="22" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="30" Connection="Output" />
+      <Destination ToolID="18" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="30" Connection="Output" />
+      <Destination ToolID="57" Connection="Input4" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="47" Connection="Output" />
+      <Destination ToolID="57" Connection="Control" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="31" Connection="Output" />
+      <Destination ToolID="30" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="53" Connection="Output" />
+      <Destination ToolID="47" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="35" Connection="True" />
+      <Destination ToolID="34" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="35" Connection="False" />
+      <Destination ToolID="36" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="35" Connection="True" />
+      <Destination ToolID="5" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="61" Connection="Output" />
+      <Destination ToolID="60" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="True" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="False" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>API Workflow</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="4b3512db-47de-41aa-bb16-893178985e05" />
+      <Telemetry>
+        <PreviousWorkflowId value="90ee88e1-1977-4492-bc85-51572601c83c" />
+        <OriginWorkflowId value="90ee88e1-1977-4492-bc85-51572601c83c" />
+      </Telemetry>
+      <PlatformWorkflowId value="" />
+    </MetaInfo>
+    <Events>
+      <Enabled value="False" />
+      <Event>
+        <Description>After Run With Errors: Email to nicolasgurchiani@gmail.com</Description>
+        <When>AfterError</When>
+        <SendMail value="True" />
+        <email_SMTPServer>smtp.gmail.com</email_SMTPServer>
+        <email_Encryption>SSL/TLS</email_Encryption>
+        <email_Port>465</email_Port>
+        <email_Authentication value="True" />
+        <email_Username>nikagurchiani@gmail.com</email_Username>
+        <email_Password>443838384F89A70C18A275073740A326166945C7B4D7F7BEDA583F4838D3278AFCF2449A6</email_Password>
+        <email_From>nikagurchiani@gmail.com</email_From>
+        <email_To>nicolasgurchiani@gmail.com</email_To>
+        <email_Subject>%AppName%: %Module% - %NumErrors% Errors</email_Subject>
+        <email_Body><![CDATA[User: %User%
+ComputerName: %ComputerName%
+WorkingDir: %WorkingDir%
+Errors: %NumErrors%
+ConversionErrors: %NumConvErrors%
+Warnings: %Warnings%
+
+%OutputLog%
+]]></email_Body>
+        <email_Attachments />
+      </Event>
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (2)</Name>
+          <ToolId value="2" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description>Macro Input (27)</Description>
+              <Name>Macro Input (27)</Name>
+              <ToolId value="27" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImageStd value="39" />
+      <MacroInputs />
+      <MacroOutputs />
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools />
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>
