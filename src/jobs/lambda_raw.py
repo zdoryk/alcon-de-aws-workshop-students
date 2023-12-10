@@ -1,44 +1,35 @@
 import requests
 from os import getenv
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import pandas as pd
 import logging
 import awswrangler as wr
 
+# # # AUTH_TOKEN = 1q2w3e4r5t
+# # # S3_BUCKET_NAME = alcon-workshop-data-689308297941
 
+# def get_data_df(hour: str):
+#     logging.info("https://43bhzz3c3f.execute-api.us-east-1.amazonaws.com/v1/data?date=08-12-2023&start_time=01:00&end_time=02:00", headers={"Authorization": "Bearer 1q2w3e4r5t"})
+   
 def get_data_df(hour: str):
     logging.info("Getting data from API")
 
-    if df_list:
-        
-        df = pd.concat(df_list, ignore_index=True)
+    url = 'https://43bhzz3c3f.execute-api.us-east-1.amazonaws.com/v1/data'
+    params = {'date': datetime.now(timezone.utc).strftime('%d-%m-%Y'), 'start_time':  f'{hour}:00', 'end_time':  f'{hour}:59'}
+    headers = {"Authorization": f"Bearer {getenv('AUTH_TOKEN')}"}
+    r = requests.get(url, params=params, headers=headers)
+    df = pd.DataFrame(r.json())
 
-        # cleaning code
-        df["DIED"] = df["DATE_DIED"].eq("9999-99-99")
-        df.drop(df[(df["AGE"] < 0) | (df["AGE"] > 110) | (df["AGE"].isnull())].index, inplace=True)
-        df["FULL_NAME"] = df["FIRST_NAME"] + " " + df["LAST_NAME"]
-
-        def idioms(x):
-            if x["AGE"] > 21 and x["SEX"] == "Female":
-                return "Mrs " + x["FULL_NAME"]
-            elif x["AGE"] > 21 and x["SEX"] == "Male":
-                return "Mr " + x["FULL_NAME"]
-            else:
-                return x["FULL_NAME"]
-
-        df["FULL_NAME"] = df.apply(idioms, axis=1)
-
-        max_age = int(df["AGE"].max())
-        age_bins = list(range(0, max_age + 10, 10))
-        df["AGE_GROUP"] = pd.cut(df["AGE"], bins=age_bins, 
-        labels=[f"{i}-{i+9}" for i in range(0, max_age, 10)], right=False)
-
-        return df
-
-    return pd.DataFrame()
-
+    return df
+    
+    
 def main(handler=None, context=None):
     logging.info("Starting lambda_raw job")
+    utc = datetime.now(timezone.utc)
+    date = utc.strftime('%Y-%m-%d')
+    S_H = (utc - timedelta(hours=1)).strftime('%H')
+    df = get_data_df(S_H)
+    wr.s3.to_csv(df, path=f"s3://{getenv('S3_BUCKET_NAME')}/raw/{date}_{S_H}.csv", index=False)
 
     return {"status": "OK"}
 
